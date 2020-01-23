@@ -25,3 +25,13 @@ define("SCKEY", "填写SendKey");
 ```
 print_r(sc_send($title, $content, SCKEY));
 ```
+
+### 定时访问
+
+然后定时访问本页面即可。可以通过 cron 、云平台的定时任务等方式操作。
+
+```
+*/5 * * * * /usr/local/bin/php cron.php >/dev/null 2>&1
+```
+
+注意丁香园的页面因为访问频繁且长，经常出现一半内容返回的情况，这时候提取函数会失败。要考虑重试。
