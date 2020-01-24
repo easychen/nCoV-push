@@ -12,11 +12,11 @@ if ($hour < 8 || $hour > 23) {
 
 // 获取最新播报信息
 if ($newdata = get_nCoV_news()) {
-    if (isset($newdata['result'][0]['id']) && intval($newdata['result'][0]['id']) > 0) {
+    if (isset($newdata[0]['id']) && intval($newdata[0]['id']) > 0) {
         
         // 本次的信息
-        $newid = intval($newdata['result'][0]['id']);
-        $news  = $newdata['result'][0];
+        $newid = intval($newdata[0]['id']);
+        $news = $newdata[0];
         
         // 上次的信息
         $lastid = intval(kget("lastid"));
@@ -70,7 +70,7 @@ function kget($key)
 
 function get_nCoV_news()
 {
-    $reg = '/<script id="getTimelineService">.+?window.getTimelineService\s=\s({.+?)}catch\(e\){}<\/script>/im';
+    $reg = '/<script id="getTimelineService">.+?window.getTimelineService\s=\s(\[{.+?\])}catch\(e\){}<\/script>/im';
     if (preg_match($reg, $content = file_get_contents('https://3g.dxy.cn/newh5/view/pneumonia'), $out)) {
         return @json_decode($out[1], 1);
     } else {
