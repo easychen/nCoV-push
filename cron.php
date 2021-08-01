@@ -70,7 +70,7 @@ function kget($key)
 
 function get_nCoV_news()
 {
-    $reg = '/<script id="getTimelineService">.+?window.getTimelineService\s=\s(\[{.+?\])}catch\(e\){}<\/script>/im';
+    $reg = '/<script id="getTimelineService1">.+?window.getTimelineService1\s=\s(\[{.+?\])}catch\(e\){}<\/script>/im';
     if (preg_match($reg, $content = file_get_contents('https://3g.dxy.cn/newh5/view/pneumonia'), $out)) {
         return @json_decode($out[1], 1);
     } else {
